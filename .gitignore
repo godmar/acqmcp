@@ -1,0 +1,10 @@
+.env
+/endeavour.yaml
+/.venv/
+/dist/
+/build/
+*.egg-info/
+/.pytest_cache/
+__pycache__/
+*.py[cod]
+/k8s/generated/

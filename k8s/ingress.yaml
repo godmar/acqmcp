@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: acq-mcp
+  labels:
+    app.kubernetes.io/name: acq-mcp
+spec:
+  rules:
+    - host: example.invalid
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: acq-mcp
+                port:
+                  number: 80
