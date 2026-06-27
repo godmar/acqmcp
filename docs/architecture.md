@@ -2,7 +2,7 @@
 
 This project is not a fully generic OpenAPI-to-MCP server. It has a reusable
 OpenAPI-driven core, but the application is currently packaged and configured
-for the Ex Libris Alma Acquisitions API.
+for selected Ex Libris Alma APIs: Acquisitions plus Bibliographic and Inventory.
 
 ## Reusable Pieces
 
@@ -14,14 +14,15 @@ for the Ex Libris Alma Acquisitions API.
 
 ## Alma-Specific Pieces
 
-- Configuration names are `ACQ_*`.
-- `AlmaAcquisitionsClient` authenticates upstream calls by appending Alma's
-  `apikey` query parameter.
+- Configuration uses Alma-specific API key variables such as `ACQ_API_KEY` and
+  `BIBS_API_KEY`.
+- `AlmaApiClient` authenticates upstream calls by appending Alma's `apikey`
+  query parameter.
 - Tool names, resource names, docs, Kubernetes resources, and container naming
-  are acquisition-oriented.
+  are Alma-oriented.
 - Tool-name generation strips Alma's `/almaws/v1` path prefix.
 - Response metadata preserves Alma's `X-Exl-Api-Remaining` header.
-- The bundled OpenAPI document and docs are for Alma Acquisitions.
+- The bundled OpenAPI documents and docs are for Alma APIs.
 
 ## Generic Gaps
 

@@ -31,8 +31,8 @@ kubectl --kubeconfig endeavour.yaml apply -k k8s
 Check rollout:
 
 ```sh
-kubectl --kubeconfig endeavour.yaml -n vtlib rollout status deployment/acq-mcp
-kubectl --kubeconfig endeavour.yaml -n vtlib get pods,svc,ingress -l app.kubernetes.io/name=acq-mcp
+kubectl --kubeconfig endeavour.yaml -n vtlib rollout status deployment/alma-mcp
+kubectl --kubeconfig endeavour.yaml -n vtlib get pods,svc,ingress -l app.kubernetes.io/name=alma-mcp
 ```
 
 If `MCP_URL` contains a path prefix, the app accepts requests with that

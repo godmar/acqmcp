@@ -11,7 +11,8 @@ Copy `.env.sample` to `.env` and fill in the real values. Generate
 
 Required values:
 
-- `ACQ_API_KEY`: Alma API key used by the server when calling Ex Libris.
+- `ACQ_API_KEY`: Alma API key used for Acquisitions API calls.
+- `BIBS_API_KEY`: Alma API key used for Bibliographic and Inventory API calls.
 - `API_BASE_URL`: one of the Ex Libris regional API base URLs.
 - `MCP_BEARER_TOKEN`: pre-shared bearer token required from MCP clients.
 - `MCP_URL`: public HTTPS URL for this server.
@@ -25,7 +26,7 @@ pip install -r requirements-dev.txt
 ```
 
 See `docs/architecture.md` for notes on which parts of this server are reusable
-OpenAPI-to-MCP plumbing and which parts are specific to Alma Acquisitions.
+OpenAPI-to-MCP plumbing and which parts are specific to Alma APIs.
 
 ## Test
 
@@ -46,22 +47,23 @@ endpoint is `/mcp` and requires:
 Authorization: Bearer $MCP_BEARER_TOKEN
 ```
 
-The server exposes one concrete MCP tool per configured Alma Acquisitions
-`operationId`, plus three support tools:
+The server exposes one concrete MCP tool per configured Alma `operationId`,
+plus three support tools:
 
-- `list_acq_operations`
-- `get_acq_operation`
-- `invoke_acq_operation`
+- `list_alma_operations`
+- `get_alma_operation`
+- `invoke_alma_operation`
 
-The current server has 59 generated Alma operation tools and 62 total MCP tools.
-Agents should prefer the concrete operation tools; the support tools are for
-discovery, inspection, and fallback calls.
+The current server has 59 Acquisitions operation tools, 77 Bibliographic and
+Inventory operation tools, and 139 total MCP tools. Agents should prefer the
+concrete operation tools; the support tools are for discovery, inspection, and
+fallback calls.
 
 Tool names are generated from HTTP method and path. For example:
 
 - `GET /almaws/v1/acq/funds` becomes `get_acq_funds`
 - `GET /almaws/v1/acq/vendors/{vendorCode}` becomes `get_acq_vendors_by_vendorCode`
-- `PUT /almaws/v1/acq/po-lines/{po_line_id}` becomes `put_acq_po_lines_by_po_line_id`
+- `GET /almaws/v1/bibs/{mms_id}/holdings` becomes `get_bibs_by_mms_id_holdings`
 
 To list the exact tools exposed by a running server:
 

@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: acq-mcp
+  name: alma-mcp
   labels:
-    app.kubernetes.io/name: acq-mcp
+    app.kubernetes.io/name: alma-mcp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: acq-mcp
+      app.kubernetes.io/name: alma-mcp
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: acq-mcp
+        app.kubernetes.io/name: alma-mcp
     spec:
       imagePullSecrets:
-        - name: acq-mcp-registry
+        - name: alma-mcp-registry
       containers:
-        - name: acq-mcp
-          image: acq-mcp:local
+        - name: alma-mcp
+          image: alma-mcp:local
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8000
           envFrom:
             - configMapRef:
-                name: acq-mcp-config
+                name: alma-mcp-config
             - secretRef:
-                name: acq-mcp-secret
+                name: alma-mcp-secret
           livenessProbe:
             httpGet:
               path: /livez

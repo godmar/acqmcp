@@ -13,10 +13,11 @@ place so OAuth2 can replace it later.
 The health endpoints `/livez` and `/healthz` are intentionally unauthenticated
 so Kubernetes can probe the container.
 
-The server never forwards the MCP bearer token to Ex Libris. Ex Libris API calls
-use only `ACQ_API_KEY`, appended as the Alma `apikey` query parameter.
+The server never forwards the MCP bearer token to Ex Libris. Upstream Ex Libris
+API calls use the configured API key for the selected Alma API, appended as the
+Alma `apikey` query parameter.
 
 Authorization can later be split by operation because each Alma `operationId`
-is exposed as its own MCP tool. The generic `invoke_acq_operation` support tool
+is exposed as its own MCP tool. The generic `invoke_alma_operation` support tool
 should be treated as an administrative fallback if finer-grained authorization
 is added.

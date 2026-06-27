@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: acq-mcp
+  name: alma-mcp
   labels:
-    app.kubernetes.io/name: acq-mcp
+    app.kubernetes.io/name: alma-mcp
 spec:
   selector:
-    app.kubernetes.io/name: acq-mcp
+    app.kubernetes.io/name: alma-mcp
   ports:
     - name: http
       port: 80

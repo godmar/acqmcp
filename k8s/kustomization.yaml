@@ -8,15 +8,15 @@ resources:
   - ingress.yaml
 
 configMapGenerator:
-  - name: acq-mcp-config
+  - name: alma-mcp-config
     envs:
       - generated/config.env
 
 secretGenerator:
-  - name: acq-mcp-secret
+  - name: alma-mcp-secret
     envs:
       - generated/secret.env
-  - name: acq-mcp-registry
+  - name: alma-mcp-registry
     type: kubernetes.io/dockerconfigjson
     files:
       - .dockerconfigjson=generated/dockerconfigjson

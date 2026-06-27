@@ -3,13 +3,13 @@
 Build locally:
 
 ```sh
-docker build -t acq-mcp:local .
+docker build -t alma-mcp:local .
 ```
 
 Run locally with your `.env`:
 
 ```sh
-docker run --rm --env-file .env -p 8000:8000 acq-mcp:local
+docker run --rm --env-file .env -p 8000:8000 alma-mcp:local
 ```
 
 If you publish to a registry, set `MCP_IMAGE` in `.env` to the full image

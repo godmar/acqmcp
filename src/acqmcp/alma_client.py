@@ -8,7 +8,7 @@ import httpx
 from acqmcp.openapi_catalog import AcqOpenAPICatalog
 
 
-class AlmaAcquisitionsClient:
+class AlmaApiClient:
     def __init__(
         self,
         *,
@@ -81,3 +81,6 @@ class AlmaAcquisitionsClient:
             },
             "body": parsed_body,
         }
+
+
+AlmaAcquisitionsClient = AlmaApiClient

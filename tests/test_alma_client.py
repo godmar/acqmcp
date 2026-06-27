@@ -1,7 +1,7 @@
 import httpx
 import pytest
 
-from acqmcp.alma_client import AlmaAcquisitionsClient
+from acqmcp.alma_client import AlmaApiClient
 from acqmcp.openapi_catalog import AcqOpenAPICatalog
 
 
@@ -23,7 +23,7 @@ async def test_invoke_operation_adds_api_key_and_returns_json() -> None:
         assert request.url.params["apikey"] == "secret"
         return httpx.Response(200, json={"ok": True}, headers={"X-Exl-Api-Remaining": "42"})
 
-    client = AlmaAcquisitionsClient(
+    client = AlmaApiClient(
         base_url="https://api.example.edu",
         api_key="secret",
         catalog=catalog,

@@ -20,7 +20,8 @@ CONFIG_KEYS = {
     "REQUEST_TIMEOUT_SECONDS",
 }
 SECRET_KEYS = {
-    "API_KEY",
+    "ACQ_API_KEY",
+    "BIBS_API_KEY",
     "MCP_BEARER_TOKEN",
 }
 
@@ -63,19 +64,19 @@ def write_docker_config(path: Path, values: dict[str, str]) -> None:
 
 
 def write_image_patch(path: Path, values: dict[str, str]) -> None:
-    image = values.get("MCP_IMAGE", "acq-mcp:local")
+    image = values.get("MCP_IMAGE", "alma-mcp:local")
     path.write_text(
         "\n".join(
             [
                 "apiVersion: apps/v1",
                 "kind: Deployment",
                 "metadata:",
-                "  name: acq-mcp",
+                "  name: alma-mcp",
                 "spec:",
                 "  template:",
                 "    spec:",
                 "      containers:",
-                "        - name: acq-mcp",
+                "        - name: alma-mcp",
                 f"          image: {image}",
                 "",
             ]
@@ -98,7 +99,7 @@ def write_ingress_patch(path: Path, values: dict[str, str]) -> None:
                 "apiVersion: networking.k8s.io/v1",
                 "kind: Ingress",
                 "metadata:",
-                "  name: acq-mcp",
+                "  name: alma-mcp",
                 "spec:",
                 "  rules:",
                 f"    - host: {parsed.hostname}",
@@ -108,7 +109,7 @@ def write_ingress_patch(path: Path, values: dict[str, str]) -> None:
                 "            pathType: Prefix",
                 "            backend:",
                 "              service:",
-                "                name: acq-mcp",
+                "                name: alma-mcp",
                 "                port:",
                 "                  number: 80",
                 "",
@@ -122,7 +123,7 @@ def main() -> None:
     if not ENV_PATH.exists():
         raise SystemExit(".env does not exist")
     values = parse_env(ENV_PATH)
-    required_keys = {"ACQ_API_KEY", "API_BASE_URL", "MCP_BEARER_TOKEN", "MCP_URL"}
+    required_keys = {"ACQ_API_KEY", "BIBS_API_KEY", "API_BASE_URL", "MCP_BEARER_TOKEN", "MCP_URL"}
     missing = sorted(required_keys - values.keys())
     if missing:
         raise SystemExit(f".env is missing required keys: {', '.join(missing)}")

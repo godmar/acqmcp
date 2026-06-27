@@ -1,4 +1,4 @@
-"""Acquisitions MCP server package."""
+"""Alma MCP server package."""
 
 __all__ = ["__version__"]
 
