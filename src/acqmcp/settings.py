@@ -10,21 +10,21 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     acq_api_key: str = Field(alias="ACQ_API_KEY")
-    acq_base_url: str = Field(alias="ACQ_BASE_URL")
-    acq_mcp_bearer_token: str = Field(alias="ACQ_MCP_BEARER_TOKEN")
-    acq_mcp_url: str = Field(alias="ACQ_MCP_URL")
+    acq_base_url: str = Field(alias="API_BASE_URL")
+    acq_mcp_bearer_token: str = Field(alias="MCP_BEARER_TOKEN")
+    acq_mcp_url: str = Field(alias="MCP_URL")
 
     acq_openapi_path: Path = Field(default=Path("acq.json"), alias="ACQ_OPENAPI_PATH")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     host: str = Field(default="0.0.0.0", alias="HOST")
     port: int = Field(default=8000, alias="PORT")
-    request_timeout_seconds: float = Field(default=30.0, alias="ACQ_REQUEST_TIMEOUT_SECONDS")
+    request_timeout_seconds: float = Field(default=30.0, alias="REQUEST_TIMEOUT_SECONDS")
 
     @field_validator("acq_mcp_bearer_token")
     @classmethod
     def token_must_not_be_blank(cls, value: str) -> str:
         if not value.strip():
-            raise ValueError("ACQ_MCP_BEARER_TOKEN must not be blank")
+            raise ValueError("MCP_BEARER_TOKEN must not be blank")
         return value
 
     @field_validator("acq_api_key")

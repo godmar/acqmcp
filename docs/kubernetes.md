@@ -13,8 +13,8 @@ This writes ignored files under `k8s/generated/`:
 - `config.env`: non-sensitive runtime config.
 - `secret.env`: Alma API key and MCP bearer token.
 - `dockerconfigjson`: registry pull secret material.
-- `deployment-image-patch.yaml`: image reference from `ACQ_MCP_IMAGE`.
-- `ingress-patch.yaml`: host and path from `ACQ_MCP_URL`.
+- `deployment-image-patch.yaml`: image reference from `MCP_IMAGE`.
+- `ingress-patch.yaml`: host and path from `MCP_URL`.
 
 Preview:
 
@@ -35,5 +35,5 @@ kubectl --kubeconfig endeavour.yaml -n vtlib rollout status deployment/acq-mcp
 kubectl --kubeconfig endeavour.yaml -n vtlib get pods,svc,ingress -l app.kubernetes.io/name=acq-mcp
 ```
 
-If `ACQ_MCP_URL` contains a path prefix, the app accepts requests with that
+If `MCP_URL` contains a path prefix, the app accepts requests with that
 prefix and also continues to answer internal probe paths without the prefix.

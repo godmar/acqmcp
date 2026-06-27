@@ -3,7 +3,7 @@
 All MCP traffic requires a bearer token:
 
 ```text
-Authorization: Bearer $ACQ_MCP_BEARER_TOKEN
+Authorization: Bearer $MCP_BEARER_TOKEN
 ```
 
 The current implementation uses a pre-shared token verifier that implements the

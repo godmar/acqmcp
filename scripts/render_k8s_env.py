@@ -13,15 +13,15 @@ ENV_PATH = ROOT / ".env"
 GENERATED = ROOT / "k8s" / "generated"
 
 CONFIG_KEYS = {
-    "ACQ_BASE_URL",
-    "ACQ_MCP_URL",
+    "API_BASE_URL",
+    "MCP_URL",
     "LOG_LEVEL",
     "PORT",
-    "ACQ_REQUEST_TIMEOUT_SECONDS",
+    "REQUEST_TIMEOUT_SECONDS",
 }
 SECRET_KEYS = {
-    "ACQ_API_KEY",
-    "ACQ_MCP_BEARER_TOKEN",
+    "API_KEY",
+    "MCP_BEARER_TOKEN",
 }
 
 
@@ -63,7 +63,7 @@ def write_docker_config(path: Path, values: dict[str, str]) -> None:
 
 
 def write_image_patch(path: Path, values: dict[str, str]) -> None:
-    image = values.get("ACQ_MCP_IMAGE", "acq-mcp:local")
+    image = values.get("MCP_IMAGE", "acq-mcp:local")
     path.write_text(
         "\n".join(
             [
@@ -85,12 +85,12 @@ def write_image_patch(path: Path, values: dict[str, str]) -> None:
 
 
 def write_ingress_patch(path: Path, values: dict[str, str]) -> None:
-    public_url = values["ACQ_MCP_URL"]
+    public_url = values["MCP_URL"]
     if "://" not in public_url:
         public_url = f"https://{public_url}"
     parsed = urlparse(public_url)
     if parsed.scheme != "https" or not parsed.hostname:
-        raise SystemExit("ACQ_MCP_URL must be an https URL with a host")
+        raise SystemExit("MCP_URL must be an https URL with a host")
     service_path = parsed.path.rstrip("/") or "/"
     path.write_text(
         "\n".join(
@@ -122,7 +122,7 @@ def main() -> None:
     if not ENV_PATH.exists():
         raise SystemExit(".env does not exist")
     values = parse_env(ENV_PATH)
-    required_keys = {"ACQ_API_KEY", "ACQ_BASE_URL", "ACQ_MCP_BEARER_TOKEN", "ACQ_MCP_URL"}
+    required_keys = {"ACQ_API_KEY", "API_BASE_URL", "MCP_BEARER_TOKEN", "MCP_URL"}
     missing = sorted(required_keys - values.keys())
     if missing:
         raise SystemExit(f".env is missing required keys: {', '.join(missing)}")

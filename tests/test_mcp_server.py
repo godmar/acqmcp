@@ -50,9 +50,9 @@ async def test_mcp_registers_one_tool_per_operation_plus_support_tools() -> None
     mcp = build_mcp_server(
         settings=Settings(
             ACQ_API_KEY="secret",
-            ACQ_BASE_URL="https://api.example.edu",
-            ACQ_MCP_BEARER_TOKEN="token",
-            ACQ_MCP_URL="https://mcp.example.edu",
+            API_BASE_URL="https://api.example.edu",
+            MCP_BEARER_TOKEN="token",
+            MCP_URL="https://mcp.example.edu",
         ),
         catalog=catalog,
         alma_client=alma_client,

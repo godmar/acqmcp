@@ -10,7 +10,7 @@ be a pre-prepared bearer token specified in .env.  Plan for adding OAuth2 suppor
 The MCP server will provide AI agents with read/write access to the Ex Libris Acquisitions API, 
 which is described in `acq.json` in this directory.
 
-The entire server will be deployed under `ACQ_MCP_URL` via https which is part of a
+The entire server will be deployed under `MCP_URL` via https which is part of a
 K8s cluster.  You must use namespace `vtlib`, which you should assume to exist (don't try
 creating it), and you need to use the kubeconfig file `endeavour.yaml` to access it.  
 Use a kustomize-style setup for your k8s/ file.

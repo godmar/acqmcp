@@ -3,7 +3,7 @@
 ## Configuration
 
 Copy `.env.sample` to `.env` and fill in the real values. Generate
-`ACQ_MCP_BEARER_TOKEN` with:
+`MCP_BEARER_TOKEN` with:
 
 ```sh
 ./make-new-token.sh
@@ -12,9 +12,9 @@ Copy `.env.sample` to `.env` and fill in the real values. Generate
 Required values:
 
 - `ACQ_API_KEY`: Alma API key used by the server when calling Ex Libris.
-- `ACQ_BASE_URL`: one of the Ex Libris regional API base URLs.
-- `ACQ_MCP_BEARER_TOKEN`: pre-shared bearer token required from MCP clients.
-- `ACQ_MCP_URL`: public HTTPS URL for this server.
+- `API_BASE_URL`: one of the Ex Libris regional API base URLs.
+- `MCP_BEARER_TOKEN`: pre-shared bearer token required from MCP clients.
+- `MCP_URL`: public HTTPS URL for this server.
 
 ## Install
 
@@ -43,7 +43,7 @@ Health checks are available at `/livez` and `/healthz`. The MCP streamable HTTP
 endpoint is `/mcp` and requires:
 
 ```text
-Authorization: Bearer $ACQ_MCP_BEARER_TOKEN
+Authorization: Bearer $MCP_BEARER_TOKEN
 ```
 
 The server exposes one concrete MCP tool per configured Alma Acquisitions
@@ -73,10 +73,10 @@ from mcp.client.session import ClientSession
 from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
-    url = os.environ["ACQ_MCP_URL"].rstrip("/")
+    url = os.environ["MCP_URL"].rstrip("/")
     if "://" not in url:
         url = "https://" + url
-    headers = {"Authorization": "Bearer " + os.environ["ACQ_MCP_BEARER_TOKEN"]}
+    headers = {"Authorization": "Bearer " + os.environ["MCP_BEARER_TOKEN"]}
     async with streamablehttp_client(url + "/mcp", headers=headers) as (read, write, _):
         async with ClientSession(read, write) as session:
             await session.initialize()
