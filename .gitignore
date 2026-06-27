@@ -1,4 +1,5 @@
 .env
+opencode.json
 /endeavour.yaml
 /.venv/
 /dist/

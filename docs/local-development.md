@@ -24,6 +24,9 @@ python3 -m venv .venv
 pip install -r requirements-dev.txt
 ```
 
+See `docs/architecture.md` for notes on which parts of this server are reusable
+OpenAPI-to-MCP plumbing and which parts are specific to Alma Acquisitions.
+
 ## Test
 
 ```sh
